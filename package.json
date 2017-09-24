@@ -1,0 +1,23 @@
+{
+  "name": "docsify-echarts-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs": "docsify serve ./docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiguaxigua/docsify-echarts-plugin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiguaxigua/docsify-echarts-plugin/issues"
+  },
+  "homepage": "https://github.com/xiguaxigua/docsify-echarts-plugin#readme",
+  "devDependencies": {
+    "docsify-cli": "^4.1.12"
+  }
+}
