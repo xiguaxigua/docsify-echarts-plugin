@@ -6,7 +6,7 @@ import babel from 'rollup-plugin-babel';
 export default {
   input: './src/index.js',
   output: {
-    file: './index.min.js',
+    file: './lib/index.min.js',
     format: 'umd',
     name: 'docsifyEcharts'
   },

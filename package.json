@@ -1,12 +1,12 @@
 {
   "name": "docsify-echarts-plugin",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "src/index.js",
   "scripts": {
     "docs": "docsify serve ./docs",
-    "dev": "rollup --config ./rollup.dev.conf.js -w",
-    "prop": "rollup --config ./rollup.prop.conf.js"
+    "dev": "rollup --config ./build/rollup.dev.conf.js -w",
+    "build": "rollup --config ./build/rollup.prod.conf.js"
   },
   "repository": {
     "type": "git",
