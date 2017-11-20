@@ -13,6 +13,11 @@
             valueAxis: {
                 axisLine: { show: false }
             }
+        },
+        events: {
+            click (e) {
+                console.log(e)
+            }
         }
     },
     xAxis : [

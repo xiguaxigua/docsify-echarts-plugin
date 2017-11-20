@@ -8,7 +8,8 @@ function install (hook, vm) {
   const chartList = []
 
   hook.beforeEach(function (content) {
-    chartList.length = 0    
+    chartList.length = 0
+    window.docsifyEchartsEvents = {}
     const reg = /^```chart((.*\n)+?)?```$/gim
     const charts = content.match(reg)
     content = content.replace(reg, `<div class="${CONTAINER_CLASS}"></div>`)
@@ -21,6 +22,10 @@ function install (hook, vm) {
         } catch (e) { console.warn('chart parse error.') }
         if (chart) {
           chartList.push(Object.assign({}, chart, { __id: index }))
+          const settings = chart.settings
+          if (settings && settings.events) {
+            window.docsifyEchartsEvents[index] = settings.events
+          }
         }
       })
     }
@@ -41,12 +46,21 @@ function install (hook, vm) {
         } = {}
       } = chart
       return `
-        var chartContainers${id} = document.querySelectorAll('.${CONTAINER_CLASS}')[${id}];
-        chartContainers${id}.style.width = '${width}';
-        chartContainers${id}.style.height = '${height}';
-        chartContainers${id}.style.border = '${border}';
-        var chart${id} = echarts.init(chartContainers${id}, ${JSON.stringify(theme)}, ${JSON.stringify(initOptions)});
-        chart${id}.setOption(${JSON.stringify(chart)}, true);
+        (function () {
+          var chartContainers${id} = document.querySelectorAll('.${CONTAINER_CLASS}')[${id}];
+          chartContainers${id}.style.width = '${width}';
+          chartContainers${id}.style.height = '${height}';
+          chartContainers${id}.style.border = '${border}';
+          var chart${id} = echarts.init(chartContainers${id}, ${JSON.stringify(theme)}, ${JSON.stringify(initOptions)});
+          window.addEventListener('resize', chart${id}.resize());
+          const itemEvents = window.docsifyEchartsEvents[${id}]
+          if (itemEvents) {
+            Object.keys(itemEvents).forEach(eventName => {
+              chart${id}.on(eventName, itemEvents[eventName])
+            })
+          }
+          chart${id}.setOption(${JSON.stringify(chart)}, true);
+        })();
       `
     }).join('')
     dom.appendTo(dom.body, script)
