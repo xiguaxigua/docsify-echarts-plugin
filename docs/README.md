@@ -2,7 +2,19 @@
 
 ```chart
 {
-    width: '80%',
+    settings: {
+        width: '50%',
+        theme: {
+            categoryAxis: {
+                axisLine: { show: false },
+                axisTick: { show: false },
+                splitLine: { show: false }
+            },
+            valueAxis: {
+                axisLine: { show: false }
+            }
+        }
+    },
     xAxis : [
         {
             type : 'category',
