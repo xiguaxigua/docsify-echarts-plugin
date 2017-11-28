@@ -51,6 +51,11 @@ function install (hook, vm) {
           chartContainers${id}.style.width = '${width}';
           chartContainers${id}.style.height = '${height}';
           chartContainers${id}.style.border = '${border}';
+          var theme = Object.keys(${JSON.stringify(theme)}).length
+            ? JSON.stringify(theme)
+            : Object.keys(window.$docsify.echartsTheme || {}).length
+              ? window.$docsify.echartsTheme
+              : {}
           var chart${id} = echarts.init(chartContainers${id}, ${JSON.stringify(theme)}, ${JSON.stringify(initOptions)});
           window.addEventListener('resize', chart${id}.resize());
           const itemEvents = window.docsifyEchartsEvents[${id}]
